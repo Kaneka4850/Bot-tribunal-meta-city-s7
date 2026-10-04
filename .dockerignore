@@ -1,0 +1,29 @@
+.env
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+
+# Ignorar o DB local para não enviar dados da máquina host para a imagem, 
+# (o Docker usará um volume limpo ou persistido na AWS)
+stmc.db
+*.sqlite
+*.sqlite3
+
+# Logs
+bot.log
+logs/
+*.log
+
+# Design
+Moldes/
+image.png.bak
+
+# IDEs
+.vscode/
+.idea/

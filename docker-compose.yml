@@ -1,0 +1,17 @@
+services:
+  bot-stmc:
+    build: .
+    container_name: stmc_discord_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # O código espera o banco de dados em /app/stmc.db, mas o Dockerfile 
+      # criou um atalho para a pasta /data. Assim, mapeamos /data para 
+      # o volume persistente, salvando o banco e seus arquivos temporários.
+      - stmc_data:/data
+
+volumes:
+  # Volume gerenciado pelo Docker, para garantir que você não perca
+  # os dados de processos, registros e demissões quando atualizar o bot.
+  stmc_data:

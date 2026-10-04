@@ -1,0 +1,31 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# Logs
+logs/
+*.log
+
+# Bancos de dados locais
+*.db
+*.sqlite
+*.sqlite3
+*.db3
+
+# Pastas de IDE e SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Pastas de design ou ignoradas
+Moldes/
+image.png.bak
