@@ -83,18 +83,36 @@ Se quiser ver se tudo está funcionando antes de mandar para a internet, você p
 **Opção A: Com Docker (Recomendado)**
 Se você tiver o Docker Desktop instalado:
 1. Abra o terminal (Prompt de Comando ou PowerShell) na pasta do projeto.
-2. Digite: `docker compose up -d --build` e aperte Enter.
-3. Para ver o que o bot está fazendo (logs), digite: `docker compose logs -f`.
-4. Para desligar o bot, digite: `docker compose down`.
+2. Copie e cole o comando para ligar:
+```bash
+docker compose up -d --build
+```
+3. Para ver o que o bot está fazendo (logs):
+```bash
+docker compose logs -f
+```
+4. Para desligar o bot:
+```bash
+docker compose down
+```
 
 **Opção B: Sem Docker (Para quem tem Python instalado)**
 1. Certifique-se de ter o Python 3.13 instalado.
-2. No terminal, digite: `python -m venv venv` (para criar um ambiente virtual).
+2. No terminal, crie o ambiente virtual:
+```bash
+python -m venv venv
+```
 3. Ative-o:
    - No Windows: `venv\Scripts\activate`
    - No Mac/Linux: `source venv/bin/activate`
-4. Instale as dependências: `pip install -r requirements.txt`
-5. Rode o bot: `python main.py`
+4. Instale as dependências:
+```bash
+pip install -r requirements.txt
+```
+5. Rode o bot:
+```bash
+python main.py
+```
 
 ---
 
@@ -118,42 +136,76 @@ Para que o bot não desligue quando você fechar seu computador, vamos usar a **
 Abra seu terminal no computador onde salvou o arquivo `.pem` (geralmente a pasta Downloads).
 
 **Se você usa Windows:**
-O Windows é chato com a permissão do arquivo. Se você tiver erro de permissão ao tentar conectar, abra as propriedades do arquivo `.pem` > Segurança > Avançado > Desative a herança e remova todos os usuários, deixando apenas você com Controle Total.
-Para conectar, veja o IP Público da sua instância na AWS e digite no terminal:
-`ssh -i chave-bot.pem ubuntu@SEU_IP_PUBLICO_AQUI`
+O Windows é chato com a permissão do arquivo. Se você tiver erro de permissão ao tentar conectar: clique com o botão direito no arquivo `.pem` > Propriedades > Segurança > Avançado > Desative a herança e remova todos os usuários, deixando apenas você com Controle Total.
+
+Para conectar, veja o IP Público da sua instância na AWS e cole o comando abaixo no seu terminal (troque o final pelo seu IP):
+```bash
+ssh -i chave-bot.pem ubuntu@SEU_IP_PUBLICO_AQUI
+```
 
 **Se você usa Mac ou Linux:**
-`chmod 400 chave-bot.pem`
-`ssh -i chave-bot.pem ubuntu@SEU_IP_PUBLICO_AQUI`
+Primeiro proteja a chave:
+```bash
+chmod 400 chave-bot.pem
+```
+E conecte (trocando pelo seu IP):
+```bash
+ssh -i chave-bot.pem ubuntu@SEU_IP_PUBLICO_AQUI
+```
 
 ### Passo 4.3: Instalar o Docker na Máquina
-Uma vez conectado na máquina preta (Ubuntu), cole os comandos abaixo, um por vez, apertando Enter:
+Uma vez conectado na máquina preta (Ubuntu), copie e cole os comandos abaixo, **um por vez**, apertando Enter.
 
 1. Atualizar o sistema:
-`sudo apt update && sudo apt upgrade -y`
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
 2. Instalar o Docker:
-`sudo apt install docker.io docker-compose-v2 git -y`
+```bash
+sudo apt install docker.io docker-compose-v2 git -y
+```
+
 3. Permitir que o Ubuntu use o Docker sem precisar de senha:
-`sudo usermod -aG docker ubuntu`
-*(Para que isso tenha efeito, feche o terminal, abra de novo e reconecte no SSH).*
+```bash
+sudo usermod -aG docker ubuntu
+```
+*(Para que a permissão tenha efeito, feche o terminal, abra de novo e reconecte via SSH).*
 
 ### Passo 4.4: Enviar o Bot e Ligar
-1. Clone seu código do GitHub para a máquina:
-`git clone LINK_DO_SEU_REPOSITORIO`
-2. Entre na pasta clonada:
-`cd NOME_DA_PASTA`
-3. Crie o seu arquivo `.env` na máquina colando seus IDs:
-`nano .env`
-*(Isso abre um editor de texto no terminal. Cole o conteúdo do seu `.env` lá. Para salvar e sair, aperte `Ctrl + O`, `Enter`, e depois `Ctrl + X`).*
-4. Ligue o bot!
-`docker compose up -d --build`
+1. Clone o seu código do GitHub para a máquina colando este comando:
+```bash
+git clone https://github.com/Kaneka4850/Bot-tribunal-meta-city-s7.git
+```
 
-Seu bot está online! A configuração `restart: unless-stopped` que criamos já garante que, se o computador da AWS reiniciar, o Docker religa o seu bot sozinho.
+2. Entre na pasta clonada:
+```bash
+cd Bot-tribunal-meta-city-s7/STMC
+```
+
+3. Crie o seu arquivo `.env` na máquina colando seus IDs. Digite:
+```bash
+nano .env
+```
+*(Isso abrirá uma tela vazia. Cole o conteúdo do seu `.env` lá. Para salvar e sair, aperte `Ctrl + O`, `Enter`, e depois `Ctrl + X`).*
+
+4. Ligue o bot! Copie e cole:
+```bash
+docker compose up -d --build
+```
+
+**Pronto! Seu bot está online.** A configuração que criamos já garante que, se o computador da AWS reiniciar, o Docker religa o seu bot sozinho.
 
 ### Como atualizar o bot no futuro?
-Se você mudar o código no GitHub e quiser atualizar na AWS, conecte via SSH, entre na pasta do bot e faça:
-1. `git pull` (para puxar o código novo)
-2. `docker compose up -d --build` (para recriar o bot com as atualizações).
+Se você mudar o código no GitHub e quiser atualizar na AWS, conecte via SSH, entre na pasta do bot (`cd Bot-tribunal-meta-city-s7/STMC`) e cole:
+1. Puxar o código novo:
+```bash
+git pull
+```
+2. Recriar o bot com a atualização:
+```bash
+docker compose up -d --build
+```
 
 ---
 
